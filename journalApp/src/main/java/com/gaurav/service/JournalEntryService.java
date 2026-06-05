@@ -26,22 +26,15 @@ public class JournalEntryService {
         return journalEntryRepository.findAll();
     }
 
-    public JournalEntry getEntryById(ObjectId id){
+    public Optional<JournalEntry> getEntryById(ObjectId id){
 
-        Optional<JournalEntry> journalEntryOptional = journalEntryRepository.findById(id);
-        JournalEntry entry = null;
-
-        if(journalEntryOptional.isPresent()){
-            entry = journalEntryOptional.get();
-        }
-        return entry;
+       return journalEntryRepository.findById(id);
     }
 
     public boolean deleteEntryById(ObjectId id){
         journalEntryRepository.deleteById(id);
         return true;
     }
-
 
     public Optional<JournalEntry> updateJournalEntryById(ObjectId id){
         Optional<JournalEntry> byId = journalEntryRepository.findById(id);
