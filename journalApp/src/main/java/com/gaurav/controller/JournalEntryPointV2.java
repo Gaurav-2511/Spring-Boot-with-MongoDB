@@ -1,40 +1,24 @@
 package com.gaurav.controller;
 
 import com.gaurav.entity.JournalEntry;
+import com.gaurav.service.JournalEntryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/journal")
 public class JournalEntryPointV2 {
 
-    @GetMapping
-    public List<JournalEntry> getAll(){
-        return null;
-    }
+    @Autowired
+    private JournalEntryService journalEntryService;
+
+
+
 
     @PostMapping
-    public boolean createEntry(@RequestBody JournalEntry entry){
+    public boolean saveEntry(@RequestBody JournalEntry journalEntry){
+        journalEntryService.saveEntry(journalEntry);
         return true;
     }
 
-    @GetMapping("/id/{myId}")
-    public JournalEntry getGournalEntryById(@PathVariable long myId){
-        return null;
-    }
-    
-    @DeleteMapping("id/{myId}")
-    public JournalEntry deleteById(@PathVariable long myId){
-        return null;
-    }
-
-
-    @PutMapping("id/{myId}")
-    public JournalEntry updateById(@PathVariable long myId, @RequestBody JournalEntry entry){
-        return null;
-    }
 }

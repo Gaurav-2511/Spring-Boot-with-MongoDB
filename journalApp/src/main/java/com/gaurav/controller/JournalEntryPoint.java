@@ -20,10 +20,10 @@ public class JournalEntryPoint {
     }
 
     @PostMapping
-    public boolean createEntry(@RequestBody JournalEntry entry){
-        journalEntrys.put(entry.getId(), entry);
-        return true;
-    }
+//    public boolean createEntry(@RequestBody JournalEntry entry){
+//        journalEntrys.put(entry.getId(), entry);
+//        return true;
+//    }
 
     @GetMapping("/id/{myId}")
     public JournalEntry getGournalEntryById(@PathVariable long myId){
