@@ -2,9 +2,13 @@ package com.gaurav.service;
 
 import com.gaurav.entity.JournalEntry;
 import com.gaurav.repository.JournalEntryRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JournalEntryService {
@@ -13,8 +17,35 @@ public class JournalEntryService {
     private JournalEntryRepository journalEntryRepository;
 
 
-    public void saveEntry(JournalEntry journalEntry){
-        journalEntryRepository.save(journalEntry);
+    public JournalEntry saveEntry(JournalEntry journalEntry){
+        journalEntry.setDateTime(LocalDateTime.now());
+        return journalEntryRepository.save(journalEntry);
+    }
+
+    public List<JournalEntry> getEntries(){
+        return journalEntryRepository.findAll();
+    }
+
+    public JournalEntry getEntryById(ObjectId id){
+
+        Optional<JournalEntry> journalEntryOptional = journalEntryRepository.findById(id);
+        JournalEntry entry = null;
+
+        if(journalEntryOptional.isPresent()){
+            entry = journalEntryOptional.get();
+        }
+        return entry;
+    }
+
+    public boolean deleteEntryById(ObjectId id){
+        journalEntryRepository.deleteById(id);
+        return true;
+    }
+
+
+    public Optional<JournalEntry> updateJournalEntryById(ObjectId id){
+        Optional<JournalEntry> byId = journalEntryRepository.findById(id);
+        return byId;
     }
 
 }
