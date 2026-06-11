@@ -38,7 +38,10 @@ public class JournalEntryService {
        return journalEntryRepository.findById(id);
     }
 
-    public boolean deleteEntryById(ObjectId id){
+    public boolean deleteEntryById(ObjectId id, String userName){
+        User user = userService.findByUserName(userName);
+        user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+        userService.saveUser(user);
         journalEntryRepository.deleteById(id);
         return true;
     }

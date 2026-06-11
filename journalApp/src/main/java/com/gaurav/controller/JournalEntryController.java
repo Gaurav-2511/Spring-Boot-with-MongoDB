@@ -35,6 +35,8 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     @PostMapping("/{userName}")
     public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry journalEntry,@PathVariable String userName){
 
@@ -46,6 +48,8 @@ public class JournalEntryController {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/id/{id}")
     public ResponseEntity<JournalEntry> getEntryById(@PathVariable ObjectId id){
         Optional<JournalEntry> journalEntry = journalEntryService.getEntryById(id);
@@ -56,11 +60,15 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/id/{id}")
-    public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId id){
-        journalEntryService.deleteEntryById(id);
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    @DeleteMapping("/{userName}/id/{id}")
+    public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id, @PathVariable String userName){
+        journalEntryService.deleteEntryById(id, userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
 
 //    @PutMapping("/id/{id}")
 //    public ResponseEntity<JournalEntry> updateJournalEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry){
