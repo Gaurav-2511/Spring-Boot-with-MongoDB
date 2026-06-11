@@ -1,6 +1,7 @@
 package com.gaurav.service;
 
 import com.gaurav.entity.JournalEntry;
+import com.gaurav.entity.User;
 import com.gaurav.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,16 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepository journalEntryRepository;
 
+    @Autowired
+    private UserService userService;
 
-    public JournalEntry saveEntry(JournalEntry journalEntry){
+
+    public void saveEntry(JournalEntry journalEntry, String userName){
+        User user = userService.findByUserName(userName);
         journalEntry.setDateTime(LocalDateTime.now());
-        return journalEntryRepository.save(journalEntry);
+        JournalEntry saved = journalEntryRepository.save(journalEntry);
+        user.getJournalEntries().add(saved);
+        userService.saveUser(user);
     }
 
     public List<JournalEntry> getEntries(){
