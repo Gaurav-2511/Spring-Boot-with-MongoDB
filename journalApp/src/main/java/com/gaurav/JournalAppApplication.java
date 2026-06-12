@@ -16,7 +16,7 @@ public class JournalAppApplication {
 	}
 
 	@Bean
-	public MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactrory){
-		return new MongoTransactionManager(dbFactrory);
+	public MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory){
+		return new MongoTransactionManager(dbFactory);
 	}
 }
